@@ -16,24 +16,29 @@ main{max-width:1100px;margin:auto;padding:28px 18px 56px}.top{display:flex;justi
 .brand{font-size:13px;letter-spacing:.16em;font-weight:800;color:var(--cyan)}.edition{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:5px 10px;border-radius:99px}
 h1{font-size:clamp(30px,5vw,54px);line-height:1.05;letter-spacing:-.04em;margin:8px 0 12px;max-width:850px}
 h1 span{color:var(--cyan)}.intro{color:var(--muted);max-width:760px;font-size:16px;margin:0 0 25px}
-.panel{background:linear-gradient(145deg,rgba(16,35,55,.96),rgba(9,24,39,.96));border:1px solid var(--line);border-radius:17px;padding:18px;box-shadow:0 12px 35px #0003}
+.panel{background:linear-gradient(145deg,rgba(16,35,55,.96),rgba(9,24,39,.96));border:1px solid var(--line);border-radius:17px;padding:18px;box-shadow:0 12px 35px #0003;min-width:0}
 .panel h2{font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 13px;color:#d9edf9}
 .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:15px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.control{background:#071726;border:1px solid #1b3449;border-radius:12px;padding:12px}
-.control label{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted);margin-bottom:7px}.control output{color:var(--text);font-weight:700}
+.selects{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:13px}.selects select{font-size:13px;padding:8px 6px}
+.control{background:#071726;border:1px solid #1b3449;border-radius:12px;padding:12px;min-width:0}.control[hidden]{display:none}
+.control label{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted);margin-bottom:7px}.control output{color:var(--text);font-weight:700;white-space:nowrap}
 input[type=range]{width:100%;accent-color:var(--cyan);cursor:pointer}
 select,button{font:inherit;color:var(--text);background:#10283d;border:1px solid #31506a;border-radius:9px;padding:9px 11px}
 select{width:100%}button{cursor:pointer;font-weight:650}button:hover{border-color:var(--cyan)}button.primary{background:var(--cyan);color:#04131d;border-color:var(--cyan)}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:13px}.actions .spacer{flex:1}
+.actions label{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}.actions select{width:auto;padding:7px 9px}
+.timebar{display:flex;align-items:center;gap:12px;margin-top:12px}.timebar output{min-width:150px;text-align:right;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:13px}
-.stat{background:#071726;border:1px solid #1b3449;border-radius:11px;padding:11px}.stat small{display:block;color:var(--muted);font-size:11px}.stat strong{font-size:21px;letter-spacing:-.03em}
-canvas{display:block;width:100%;height:auto}.diagram-wrap{background:#061522;border:1px solid #19364b;border-radius:12px;overflow:hidden}
+.stat{background:#071726;border:1px solid #1b3449;border-radius:11px;padding:11px;min-width:0}.stat small{display:block;color:var(--muted);font-size:11px}.stat strong{font-size:20px;letter-spacing:-.03em;font-variant-numeric:tabular-nums;white-space:nowrap}
+canvas{display:block;width:100%}.line-canvas{height:380px}.wave-canvas{height:300px;cursor:crosshair;touch-action:none}
+.diagram-wrap{background:#061522;border:1px solid #19364b;border-radius:12px;overflow:hidden}
 .legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:11px;margin:10px 2px 0}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
-.note{font-size:12px;color:var(--muted);margin:12px 2px 0}.formula{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#071726;border:1px solid #1b3449;border-radius:10px;padding:12px;overflow:auto;color:#cdeeff}
-.bottom{margin-top:15px;display:grid;grid-template-columns:1fr 1fr;gap:15px}.callout{border-left:3px solid var(--cyan);padding:3px 0 3px 12px;color:var(--muted);font-size:13px}
+.note{font-size:12px;color:var(--muted);margin:12px 2px 0}.formula{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#071726;border:1px solid #1b3449;border-radius:10px;padding:12px;overflow:auto;color:#cdeeff;line-height:1.8}
+.bottom{margin-top:15px;display:grid;grid-template-columns:1fr 1fr;gap:15px}.callout{border-left:3px solid var(--cyan);padding:3px 0 3px 12px;color:var(--muted);font-size:13px}.callout p{margin:0 0 8px}.callout p:last-child{margin:0}
 footer{text-align:center;color:#71889d;font-size:11px;margin-top:28px}
-@media(max-width:760px){main{padding:20px 12px 40px}.grid,.bottom{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr 1fr}.panel{padding:14px}}
-@media(max-width:420px){.controls{grid-template-columns:1fr}.stat strong{font-size:18px}}
+@media(max-width:760px){main{padding:20px 12px 40px}.grid,.bottom{grid-template-columns:1fr}.panel{padding:14px}.line-canvas{height:300px}.wave-canvas{height:260px}.stat strong{font-size:18px}}
+@media(max-width:420px){.controls,.selects{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}.timebar output{min-width:118px}}
 </style>
 </head>
 <body>
@@ -45,152 +50,511 @@ footer{text-align:center;color:#71889d;font-size:11px;margin-top:28px}
  <section class="grid">
   <div class="panel">
    <h2>01 / Propagación sobre la pista</h2>
-   <div class="diagram-wrap"><canvas id="lineCanvas" width="900" height="300" aria-label="Animación de propagación y reflexión sobre una línea de transmisión"></canvas></div>
+   <div class="diagram-wrap"><canvas id="lineCanvas" class="line-canvas" role="img" aria-label="Tensión a lo largo de la línea de transmisión en el instante seleccionado, separada en onda incidente, onda reflejada y tensión total"></canvas></div>
    <div class="legend">
-    <span><i class="dot" style="background:var(--orange)"></i>Onda incidente</span>
-    <span><i class="dot" style="background:var(--blue)"></i>Onda reflejada</span>
+    <span><i class="dot" style="background:var(--orange)"></i>Onda incidente (→)</span>
+    <span><i class="dot" style="background:var(--blue)"></i>Onda reflejada (←)</span>
+    <span><i class="dot" style="background:var(--text)"></i>Tensión total</span>
     <span><i class="dot" style="background:var(--green)"></i>Carga</span>
    </div>
-   <div class="actions"><button class="primary" id="run">▶ Iniciar simulación</button><button id="reset">↺ Reiniciar</button><button id="single">Un recorrido</button></div>
-   <p class="note" id="status" aria-live="polite">Pulsa «Iniciar simulación» para lanzar un pulso hacia la carga.</p>
+   <div class="actions">
+    <button class="primary" id="run">▶ Iniciar simulación</button><button id="reset">↺ Reiniciar</button><button id="single">Un recorrido</button>
+    <span class="spacer"></span>
+    <label for="speed">Ritmo
+     <select id="speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="2">2×</option></select>
+    </label>
+   </div>
+   <div class="timebar">
+    <input id="time" type="range" min="0" max="1000" step="1" value="0" aria-label="Instante de la simulación">
+    <output id="timeout" for="time">t = 0 ps</output>
+   </div>
+   <p class="note" id="status" aria-live="polite">Pulsa «Iniciar simulación» para lanzar el flanco hacia la carga, o arrastra el control de tiempo.</p>
   </div>
 
   <div class="panel">
    <h2>02 / Parámetros de la línea</h2>
    <div class="controls">
     <div class="control"><label for="z0">Impedancia característica <output id="z0out">50 Ω</output></label><input id="z0" type="range" min="20" max="120" step="5" value="50"></div>
-    <div class="control"><label for="zl">Impedancia de carga <output id="zlout">100 Ω</output></label><input id="zl" type="range" min="0" max="200" step="5" value="100"></div>
     <div class="control"><label for="length">Longitud de pista <output id="lenout">30 cm</output></label><input id="length" type="range" min="5" max="100" step="5" value="30"></div>
+    <div class="control"><label for="zl">Impedancia de carga <output id="zlout">100 Ω</output></label><input id="zl" type="range" min="0" max="200" step="5" value="100"></div>
     <div class="control"><label for="velocity">Velocidad relativa <output id="velout">0.60 c</output></label><input id="velocity" type="range" min="30" max="90" step="5" value="60"></div>
+    <div class="control"><label for="rs">Impedancia de fuente <output id="rsout">50 Ω</output></label><input id="rs" type="range" min="0" max="200" step="5" value="50"></div>
+    <div class="control"><label for="rise">Tiempo de subida <output id="riseout">100 ps</output></label><input id="rise" type="range" min="0" max="14" step="1" value="4"></div>
    </div>
-   <div class="control" style="margin-top:12px">
-    <label for="termination">Condición de terminación</label>
-    <select id="termination">
-     <option value="custom">Carga resistiva configurable</option>
-     <option value="matched">Adaptada (ZL = Z0)</option>
-     <option value="open">Circuito abierto</option>
-     <option value="short">Cortocircuito</option>
-    </select>
+   <div class="selects">
+    <div class="control">
+     <label for="termination">Carga</label>
+     <select id="termination">
+      <option value="custom">Resistiva</option>
+      <option value="matched">Adaptada</option>
+      <option value="open">Abierto</option>
+      <option value="short">Corto</option>
+     </select>
+    </div>
+    <div class="control">
+     <label for="source">Fuente</label>
+     <select id="source">
+      <option value="matched">Adaptada</option>
+      <option value="custom">Resistiva</option>
+      <option value="ideal">Ideal (0 Ω)</option>
+     </select>
+    </div>
+    <div class="control">
+     <label for="stimulus">Excitación</label>
+     <select id="stimulus">
+      <option value="step">Escalón</option>
+      <option value="pulse">Pulso</option>
+     </select>
+    </div>
    </div>
+   <div class="control" id="widthCtl" style="margin-top:13px" hidden><label for="width">Ancho del pulso (al 50 %) <output id="widthout">1.00 ns</output></label><input id="width" type="range" min="0" max="10" step="1" value="5"></div>
    <div class="stats">
     <div class="stat"><small>Coef. reflexión ΓL</small><strong id="gamma">+0.33</strong></div>
+    <div class="stat"><small>Coef. fuente ΓS</small><strong id="gammas">0.00</strong></div>
     <div class="stat"><small>Potencia reflejada</small><strong id="power">11.1%</strong></div>
-    <div class="stat"><small>Voltaje en carga*</small><strong id="vload">1.33 pu</strong></div>
+    <div class="stat"><small>Retardo de ida td</small><strong id="tdout">1.67 ns</strong></div>
+    <div class="stat"><small>Carga, 1ª llegada*</small><strong id="vload">0.67 V</strong></div>
+    <div class="stat"><small>Valor final en carga*</small><strong id="vfinal">0.67 V</strong></div>
    </div>
-   <p class="note">*Para un escalón incidente de amplitud 1 pu. Modelo ideal, carga resistiva y fuente adaptada a Z₀.</p>
+   <p class="note">*Generador de 1 V en vacío con resistencia interna Rs. Línea ideal sin pérdidas y carga resistiva.</p>
   </div>
  </section>
 
  <section class="bottom">
   <div class="panel">
-   <h2>03 / Respuesta temporal en la carga</h2>
-   <div class="diagram-wrap"><canvas id="waveCanvas" width="900" height="310" aria-label="Gráfica temporal de la respuesta de voltaje en la carga"></canvas></div>
-   <p class="note">La primera transición aparece tras el tiempo de propagación de ida. La amplitud depende de la reflexión en la carga.</p>
+   <h2>03 / Respuesta temporal en los extremos</h2>
+   <div class="diagram-wrap"><canvas id="waveCanvas" class="wave-canvas" role="img" aria-label="Gráfica temporal de la tensión en el extremo de la fuente y en el extremo de la carga"></canvas></div>
+   <p class="note">Cada transición llega separada por múltiplos de td. Haz clic o arrastra sobre la gráfica para mover el instante de la simulación.</p>
   </div>
   <div class="panel">
    <h2>04 / Interpretación física</h2>
-   <div class="formula">Γ<sub>L</sub> = (Z<sub>L</sub> − Z<sub>0</sub>) / (Z<sub>L</sub> + Z<sub>0</sub>)</div>
-   <p id="interpretation" class="callout" style="margin-top:14px">Como ZL es mayor que Z0, ΓL es positivo: la onda reflejada conserva la polaridad de la onda incidente.</p>
-   <p class="note">Si Γ = 0 no hay reflexión en la carga. Si Γ = +1, el voltaje se refleja con la misma polaridad (abierto ideal). Si Γ = −1, se refleja invertido (corto ideal).</p>
+   <div class="formula">Γ<sub>L</sub> = (Z<sub>L</sub> − Z<sub>0</sub>) / (Z<sub>L</sub> + Z<sub>0</sub>)<br>Γ<sub>S</sub> = (R<sub>S</sub> − Z<sub>0</sub>) / (R<sub>S</sub> + Z<sub>0</sub>)<br>V⁺ = V<sub>g</sub> · Z<sub>0</sub> / (R<sub>S</sub> + Z<sub>0</sub>) &nbsp;·&nbsp; t<sub>d</sub> = ℓ / v</div>
+   <div id="interpretation" class="callout" style="margin-top:14px"></div>
+   <p class="note">Si Γ = 0 no hay reflexión en ese extremo. Si Γ = +1, el voltaje se refleja con la misma polaridad (abierto ideal). Si Γ = −1, se refleja invertido (corto ideal).</p>
   </div>
  </section>
- <footer>BEYOND THE CIRCUIT · Laboratorio didáctico de líneas de transmisión · Modelo ideal de primer orden</footer>
+ <footer>BEYOND THE CIRCUIT · Laboratorio didáctico de líneas de transmisión · Modelo ideal sin pérdidas por superposición de ondas viajeras</footer>
 </main>
 <script>
 (() => {
+ 'use strict';
  const $ = id => document.getElementById(id);
- const els = ['z0','zl','length','velocity','termination'];
- let running=false, start=0, elapsed=0, raf=0, last=0, oneShot=false;
- const line=$('lineCanvas'), wave=$('waveCanvas');
- const lc=line.getContext('2d'), wc=wave.getContext('2d');
- const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
- const C={orange:css('--orange'),blue:css('--blue'),green:css('--green'),cyan:css('--cyan'),muted:css('--muted'),grid:'#1b354a',white:'#eaf4fc'};
- const get = id => Number($(id).value);
- function params(){
-  let z0=get('z0'), zl=get('zl'), mode=$('termination').value;
-  if(mode==='matched')zl=z0;
-  if(mode==='open')zl=Infinity;
-  if(mode==='short')zl=0;
-  let g=mode==='open'?1:(mode==='short'?-1:(zl-z0)/(zl+z0));
-  return {z0,zl,g,mode};
+ const C0 = 299792458;          // m/s
+ const VG = 1;                  // amplitud del generador en vacío (V)
+ const RISE_PS = [20,35,50,75,100,150,200,300,500,750,1000,1500,2000,3000,5000];
+ const WIDTH_PS = [100,200,300,500,750,1000,1500,2000,3000,5000,8000];
+ const EDGE_10_90 = 0.5903;     // fracción 10–90 % de un flanco coseno alzado
+ const EPS = 1e-9;
+
+ const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+ const C = {orange:css('--orange'),blue:css('--blue'),green:css('--green'),cyan:css('--cyan'),red:css('--red'),muted:css('--muted'),text:css('--text'),grid:'#1b354a',zero:'#3d5d78'};
+ const line = $('lineCanvas'), wave = $('waveCanvas');
+ const num = id => Number($(id).value);
+
+ const S = {t:0, playing:false, stopAt:Infinity, last:0, raf:0, wbox:{L:0,R:1}, dragging:false};
+ let P = null;
+
+ /* ---------- formato ---------- */
+ const fmtT = ns => ns < 1 ? Math.round(ns*1000)+' ps' : ns < 10 ? ns.toFixed(2)+' ns' : ns.toFixed(1)+' ns';
+ const signed = (x,d=2) => Math.abs(x) < 0.5*10**-d ? (0).toFixed(d) : (x>0?'+':'−')+Math.abs(x).toFixed(d);
+ const fmtV = v => signed(v)+' V';
+ const fmtR = r => r === Infinity ? '∞ Ω' : r+' Ω';
+
+ /* ---------- modelo ---------- */
+ function compute(){
+  const z0 = num('z0'), lm = $('termination').value, sm = $('source').value;
+  let zl = num('zl'), rs = num('rs');
+  if(lm === 'matched') zl = z0; else if(lm === 'open') zl = Infinity; else if(lm === 'short') zl = 0;
+  if(sm === 'matched') rs = z0; else if(sm === 'ideal') rs = 0;
+  const gl = zl === Infinity ? 1 : (zl - z0)/(zl + z0);
+  const gs = (rs - z0)/(rs + z0);
+  const vr = num('velocity')/100, lenM = num('length')/100;
+  const td = lenM/(vr*C0)*1e9;                    // ns
+  const tr = RISE_PS[num('rise')]/1000;            // ns (10–90 %)
+  const T = tr/EDGE_10_90;                          // duración total del flanco
+  const pulse = $('stimulus').value === 'pulse';
+  const W = WIDTH_PS[num('width')]/1000;           // ns (50 %–50 %)
+  const v1 = VG*z0/(z0 + rs);                       // onda lanzada
+  const tail = T + (pulse ? W : 0);
+  const rho = gl*gs;
+  // Viajes de ida y vuelta hasta que los rebotes caen por debajo del 1 %.
+  const ar = Math.abs(rho);
+  const trips = ar < EPS ? 4 : ar > 1 - EPS ? 6 : Math.min(14, Math.max(4, Math.ceil(Math.log(.01)/Math.log(ar)) + 1));
+  const tmax = Math.max(2*td*trips, 2*td + 2.5*tail);
+  const K = Math.ceil(tmax/(2*td)) + 2;
+  const c = new Float64Array(K);
+  for(let k = 0, a = v1; k < K; k++, a *= rho) c[k] = a;
+  let vdc;
+  if(pulse) vdc = 0; else if(zl === Infinity) vdc = VG; else if(zl === 0) vdc = 0; else vdc = VG*zl/(rs + zl);
+  const rate = Math.max(td/0.9, tmax/14);           // ns simulados por segundo real a 1×
+  return {z0,zl,rs,lm,sm,gl,gs,rho,vr,lenM,td,tr,T,pulse,W,v1,tmax,K,c,vdc,rate,
+          lcrit:vr*C0*tr*1e-9/6};
+ }
+
+ // Flanco de coseno alzado: suave, con tiempo 10–90 % igual a tr.
+ const edge = t => t <= 0 ? 0 : t >= P.T ? 1 : .5 - .5*Math.cos(Math.PI*t/P.T);
+ const exc = t => P.pulse ? edge(t) - edge(t - P.W) : edge(t);
+ // xi ∈ [0,1] es la posición normalizada (0 = fuente, 1 = carga).
+ function fwd(xi, t){
+  let s = 0;
+  for(let k = 0; k < P.K; k++){ const d = (2*k + xi)*P.td; if(d >= t) break; s += P.c[k]*exc(t - d); }
+  return s;
+ }
+ function bwd(xi, t){
+  let s = 0;
+  for(let k = 0; k < P.K; k++){ const d = (2*k + 2 - xi)*P.td; if(d >= t) break; s += P.c[k]*exc(t - d); }
+  return P.gl*s;
+ }
+ const total = (xi, t) => fwd(xi, t) + bwd(xi, t);
+
+ function padRange(lo, hi){ const s = Math.max(hi - lo, .2); return {lo: lo - s*.1, hi: hi + s*.12}; }
+ function precompute(){
+  const N = 600;
+  P.vs = new Float64Array(N + 1); P.vl = new Float64Array(N + 1);
+  let lo = Math.min(0, P.vdc), hi = Math.max(0, P.vdc);
+  for(let i = 0; i <= N; i++){
+   const t = P.tmax*i/N, a = total(0, t), b = total(1, t);
+   P.vs[i] = a; P.vl[i] = b;
+   lo = Math.min(lo, a, b); hi = Math.max(hi, a, b);
+  }
+  P.waveRange = padRange(lo, hi);
+  // Escala fija para el perfil espacial: no salta durante la animación.
+  lo = 0; hi = 0;
+  for(let j = 0; j <= 220; j++){
+   const t = P.tmax*j/220;
+   for(let i = 0; i <= 40; i++){
+    const f = fwd(i/40, t), b = bwd(i/40, t), v = f + b;
+    lo = Math.min(lo, f, b, v); hi = Math.max(hi, f, b, v);
+   }
+  }
+  P.lineRange = padRange(lo, hi);
+ }
+
+ /* ---------- interpretación ---------- */
+ function interpretation(){
+  const out = [];
+  if(P.lm === 'open') out.push('Circuito abierto ideal: ΓL = +1. La onda se refleja sin invertir su polaridad y en la carga la tensión incidente se duplica.');
+  else if(P.lm === 'short' || P.zl === 0) out.push('Cortocircuito ideal: ΓL = −1. La onda se refleja invertida y la tensión en la carga es siempre cero.');
+  else if(Math.abs(P.gl) < EPS) out.push('La carga está adaptada (ZL = Z0): toda la onda incidente se absorbe y no aparece onda reflejada.');
+  else if(P.gl > 0) out.push('ZL es mayor que Z0, así que ΓL es positivo: la onda reflejada conserva la polaridad y la carga recibe más tensión que la incidente.');
+  else out.push('ZL es menor que Z0, así que ΓL es negativo: la onda reflejada invierte su polaridad y la carga recibe menos tensión que la incidente.');
+
+  if(Math.abs(P.gs) < EPS) out.push('La fuente está adaptada (Rs = Z0): lo que vuelve de la carga se absorbe en el origen y no hay más rebotes. La onda lanzada vale Vg/2.');
+  else if(Math.abs(P.gl) < EPS) out.push(`La fuente no está adaptada (ΓS = ${signed(P.gs)}), pero como la carga no refleja nada, Rs solo fija la amplitud lanzada: V⁺ = ${P.v1.toFixed(2)} V.`);
+  else {
+   let s = `La fuente no está adaptada (ΓS = ${signed(P.gs)}): lo que vuelve de la carga se refleja otra vez y cada viaje de ida y vuelta queda multiplicado por ΓL·ΓS = ${signed(P.rho)}.`;
+   if(P.rho < -EPS) s += ' Como los coeficientes tienen signos opuestos, la tensión en la carga oscila alrededor de su valor final (ringing).';
+   else if(P.rho > EPS) s += ' Como los coeficientes tienen el mismo signo, la carga se acerca a su valor final por escalones, sin oscilar.';
+   if(Math.abs(P.rho) > 1 - EPS) s += ' Con |ΓL·ΓS| = 1 los rebotes no se amortiguan: en un modelo sin pérdidas nunca se asientan.';
+   out.push(s);
+  }
+
+  const lc = (P.lcrit*100).toFixed(P.lcrit < .1 ? 1 : 0);
+  let e;
+  if(P.td >= P.tr/2) e = `Con tr = ${fmtT(P.tr)} la pista es eléctricamente larga: los rebotes llegan separados del flanco y se ven como escalones independientes.`;
+  else if(P.td >= P.tr/6) e = `Con tr = ${fmtT(P.tr)} la pista está en zona intermedia: las reflexiones se mezclan con el propio flanco y lo deforman (escalones o sobrepicos en la subida).`;
+  else e = `Con tr = ${fmtT(P.tr)} la pista es eléctricamente corta: los rebotes quedan dentro del flanco y se comporta casi como una conexión ideal.`;
+  out.push(e + ` Regla práctica: longitud crítica ≈ v·tr/6 ≈ ${lc} cm.`);
+
+  const box = $('interpretation');
+  box.replaceChildren(...out.map(t => { const p = document.createElement('p'); p.textContent = t; return p; }));
+ }
+
+ /* ---------- dibujo ---------- */
+ function setup(cv){
+  const r = cv.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  const w = Math.max(260, r.width), h = Math.max(200, r.height);
+  const W = Math.round(w*dpr), H = Math.round(h*dpr);
+  if(cv.width !== W || cv.height !== H){ cv.width = W; cv.height = H; }
+  const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return {c:ctx, w, h};
+ }
+ function niceTicks(lo, hi, count){
+  const raw = (hi - lo)/count, p = 10**Math.floor(Math.log10(raw)), f = raw/p;
+  const step = (f < 1.5 ? 1 : f < 3 ? 2 : f < 7 ? 5 : 10)*p;
+  const dec = Math.max(0, -Math.floor(Math.log10(step) + 1e-9));
+  const ticks = [];
+  for(let v = Math.ceil(lo/step)*step; v <= hi + 1e-9; v += step) ticks.push(Math.abs(v) < step*1e-6 ? 0 : v);
+  return {ticks, dec};
+ }
+ function strokeSeries(c, xs, ys, color, width, dash = [], glow = 0){
+  c.beginPath();
+  for(let i = 0; i < xs.length; i++) i ? c.lineTo(xs[i], ys[i]) : c.moveTo(xs[i], ys[i]);
+  c.strokeStyle = color; c.lineWidth = width; c.setLineDash(dash); c.lineJoin = 'round';
+  if(glow){ c.shadowColor = color; c.shadowBlur = glow; }
+  c.stroke(); c.shadowBlur = 0; c.setLineDash([]);
+ }
+ function rrect(c, x, y, w, h, r){
+  c.beginPath();
+  if(c.roundRect) c.roundRect(x, y, w, h, r); else c.rect(x, y, w, h);
+ }
+
+ function drawLine(){
+  const {c, w, h} = setup(line);
+  const g = c.createLinearGradient(0, 0, w, h); g.addColorStop(0, '#081827'); g.addColorStop(1, '#0c2233');
+  c.fillStyle = g; c.fillRect(0, 0, w, h);
+  const small = w < 480;
+  const pad = Math.round(Math.max(70, Math.min(96, w*.11)));
+  const x0 = pad, x1 = w - pad, span = x1 - x0;
+  const ty = h - 72, pt = 40, pb = ty - 56;
+  const {lo, hi} = P.lineRange;
+  const yv = v => pb - (v - lo)/(hi - lo)*(pb - pt);
+
+  // eje de tensión
+  const {ticks, dec} = niceTicks(lo, hi, 4);
+  c.font = '11px system-ui'; c.textAlign = 'right'; c.textBaseline = 'middle';
+  for(const v of ticks){
+   const y = yv(v), zero = v === 0;
+   c.strokeStyle = zero ? C.zero : C.grid; c.lineWidth = 1; c.setLineDash(zero ? [] : [3, 4]);
+   c.beginPath(); c.moveTo(x0, y); c.lineTo(x1, y); c.stroke();
+   c.fillStyle = C.muted; c.fillText(v.toFixed(dec) + (zero ? ' V' : ''), x0 - 7, y);
+  }
+  c.setLineDash([]);
+
+  // perfil V(x, t)
+  const n = Math.max(80, Math.min(420, Math.round(span/1.5)));
+  const xs = new Float64Array(n + 1), F = new Float64Array(n + 1), B = new Float64Array(n + 1), V = new Float64Array(n + 1);
+  for(let i = 0; i <= n; i++){ const xi = i/n; xs[i] = x0 + span*xi; F[i] = fwd(xi, S.t); B[i] = bwd(xi, S.t); V[i] = F[i] + B[i]; }
+  c.beginPath(); c.moveTo(x0, yv(0));
+  for(let i = 0; i <= n; i++) c.lineTo(xs[i], yv(V[i]));
+  c.lineTo(x1, yv(0)); c.closePath(); c.fillStyle = 'rgba(35,217,232,.10)'; c.fill();
+  strokeSeries(c, xs, Array.from(F, yv), C.orange, 2);
+  strokeSeries(c, xs, Array.from(B, yv), C.blue, 2, [6, 4]);
+  strokeSeries(c, xs, Array.from(V, yv), C.text, 2.6, [], 10);
+
+  // guías verticales en los extremos
+  c.strokeStyle = 'rgba(157,177,196,.25)'; c.setLineDash([2, 4]);
+  for(const x of [x0, x1]){ c.beginPath(); c.moveTo(x, pt); c.lineTo(x, ty - 18); c.stroke(); }
+  c.setLineDash([]);
+
+  // pista: dieléctrico, cobre coloreado según la tensión local y plano de referencia
+  c.fillStyle = '#163e42'; c.fillRect(x0, ty - 18, span, 36);
+  c.fillStyle = '#b78a4d'; c.fillRect(x0, ty - 4, span, 8);
+  const vabs = Math.max(Math.abs(lo), Math.abs(hi)) || 1;
+  for(let i = 0; i < n; i++){
+   const v = .5*(V[i] + V[i + 1]), a = Math.min(1, Math.abs(v)/vabs);
+   if(a < .02) continue;
+   c.fillStyle = v >= 0 ? `rgba(35,217,232,${(a*.9).toFixed(3)})` : `rgba(255,119,119,${(a*.9).toFixed(3)})`;
+   c.fillRect(xs[i], ty - 4, xs[i + 1] - xs[i] + .6, 8);
+  }
+  c.fillStyle = '#8298a9'; c.fillRect(x0, ty + 24, span, 4);
+  c.fillStyle = C.muted; c.font = '11px system-ui'; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+  c.fillText(small ? 'pista · FR-4' : 'pista sobre FR-4 · plano de referencia', x0 + span/2, ty + 44);
+
+  // fuente y carga
+  const bw = x0 - 20, bh = 70, by = ty - 35, fs = small ? 10 : 11;
+  c.fillStyle = '#1b2f42'; rrect(c, 10, by, bw, bh, 8); c.fill(); rrect(c, x1 + 10, by, bw, bh, 8); c.fill();
+  c.fillStyle = C.orange; c.fillRect(x0 - 10, ty - 10, 10, 20);
+  c.fillStyle = C.green; c.fillRect(x1, ty - 15, 10, 30);
+  const vs = V[0], vl = V[n];
+  const boxText = (cx, title, value, v, color) => {
+   c.textAlign = 'center';
+   c.fillStyle = C.text; c.font = `bold ${fs}px system-ui`; c.fillText(title, cx, by + 18);
+   c.fillStyle = C.muted; c.font = `${fs}px system-ui`; c.fillText(value, cx, by + 37);
+   c.fillStyle = color; c.font = `bold ${fs}px system-ui`; c.fillText(fmtV(v), cx, by + 57);
+  };
+  boxText(10 + bw/2, 'FUENTE', 'Rs ' + fmtR(P.rs), vs, C.cyan);
+  boxText(x1 + 10 + bw/2, 'CARGA', 'ZL ' + fmtR(P.zl), vl, C.green);
+
+  // sondas sobre la curva total
+  for(const [x, v, col] of [[x0, vs, C.cyan], [x1, vl, C.green]]){
+   c.beginPath(); c.arc(x, yv(v), 5, 0, Math.PI*2); c.fillStyle = col; c.shadowColor = col; c.shadowBlur = 10; c.fill(); c.shadowBlur = 0;
+  }
+
+  // encabezado y pie
+  c.font = '12px system-ui'; c.fillStyle = C.muted; c.textBaseline = 'alphabetic';
+  c.textAlign = 'left'; c.fillText('V(x, t)', 10, 20);
+  c.textAlign = 'right'; c.fillText(`ℓ = ${num('length')} cm · td = ${fmtT(P.td)}`, w - 10, 20);
+  c.textAlign = 'left'; c.fillText(`v = ${P.vr.toFixed(2)} c · Z0 = ${P.z0} Ω`, 10, h - 10);
+  c.textAlign = 'right'; c.fillStyle = C.text; c.fillText('t = ' + fmtT(S.t), w - 10, h - 10);
+ }
+
+ function drawWave(){
+  const {c, w, h} = setup(wave);
+  c.fillStyle = '#061522'; c.fillRect(0, 0, w, h);
+  const L = 50, R = w - 14, T = 40, B = h - 38;
+  S.wbox = {L, R};
+  const {lo, hi} = P.waveRange;
+  const yv = v => B - (v - lo)/(hi - lo)*(B - T);
+  const xt = t => L + (R - L)*t/P.tmax;
+
+  // rejilla
+  c.font = '11px system-ui'; c.lineWidth = 1;
+  const yt = niceTicks(lo, hi, 5);
+  c.textAlign = 'right'; c.textBaseline = 'middle';
+  for(const v of yt.ticks){
+   const y = yv(v); c.strokeStyle = v === 0 ? C.zero : C.grid;
+   c.beginPath(); c.moveTo(L, y); c.lineTo(R, y); c.stroke();
+   c.fillStyle = C.muted; c.fillText(v.toFixed(yt.dec), L - 7, y);
+  }
+  const xtk = niceTicks(0, P.tmax, Math.max(3, Math.min(7, Math.floor((R - L)/80))));
+  c.textAlign = 'center'; c.textBaseline = 'top';
+  for(const t of xtk.ticks){
+   const x = xt(t); c.strokeStyle = C.grid;
+   c.beginPath(); c.moveTo(x, T); c.lineTo(x, B); c.stroke();
+   c.fillStyle = C.muted; c.fillText(t.toFixed(xtk.dec), x, B + 6);
+  }
+  c.textAlign = 'right'; c.fillText('t (ns)', R, B + 21);
+  c.textAlign = 'left'; c.textBaseline = 'alphabetic'; c.fillText('V', 12, T - 8);
+
+  // múltiplos de td
+  const pxPerTd = (R - L)*P.td/P.tmax;
+  const every = Math.max(1, Math.ceil(30/pxPerTd));
+  c.strokeStyle = 'rgba(101,170,255,.28)'; c.setLineDash([2, 4]); c.fillStyle = 'rgba(157,177,196,.8)'; c.textAlign = 'center';
+  for(let k = every; k*P.td <= P.tmax + EPS; k += every){
+   const x = xt(k*P.td);
+   c.beginPath(); c.moveTo(x, T); c.lineTo(x, B); c.stroke();
+   c.fillText((k === 1 ? '' : k) + 'td', x, T - 6);
+  }
+  c.setLineDash([]);
+
+  // valor final
+  if(!P.pulse && Math.abs(P.rho) < 1 - EPS){
+   c.strokeStyle = C.muted; c.setLineDash([5, 5]); c.beginPath(); c.moveTo(L, yv(P.vdc)); c.lineTo(R, yv(P.vdc)); c.stroke(); c.setLineDash([]);
+  }
+
+  // curvas: tenues completas y sólidas hasta el cursor
+  const N = P.vs.length - 1, xs = Array.from({length: N + 1}, (_, i) => L + (R - L)*i/N);
+  const ys = Array.from(P.vs, yv), yl = Array.from(P.vl, yv);
+  c.globalAlpha = .28;
+  strokeSeries(c, xs, ys, C.cyan, 2); strokeSeries(c, xs, yl, C.green, 2.5);
+  c.globalAlpha = 1;
+  const cut = Math.min(N, Math.floor(S.t/P.tmax*N));
+  if(cut > 0){
+   strokeSeries(c, xs.slice(0, cut + 1), ys.slice(0, cut + 1), C.cyan, 2);
+   strokeSeries(c, xs.slice(0, cut + 1), yl.slice(0, cut + 1), C.green, 2.6);
+  }
+
+  // cursor
+  const xc = xt(S.t);
+  c.strokeStyle = 'rgba(234,244,252,.55)'; c.beginPath(); c.moveTo(xc, T); c.lineTo(xc, B); c.stroke();
+  for(const [v, col] of [[total(0, S.t), C.cyan], [total(1, S.t), C.green]]){
+   c.beginPath(); c.arc(xc, yv(v), 4.5, 0, Math.PI*2); c.fillStyle = col; c.fill();
+  }
+
+  // leyenda
+  c.font = '11px system-ui'; c.textAlign = 'left'; c.textBaseline = 'alphabetic';
+  let lx = L;
+  const narrow = w < 480;
+  for(const [label, col, dashed] of [[narrow ? 'Fuente' : 'Extremo fuente', C.cyan], [narrow ? 'Carga' : 'Extremo carga', C.green], [P.pulse ? null : narrow ? 'Final' : 'Valor final', C.muted, true]]){
+   if(!label) continue;
+   c.strokeStyle = col; c.lineWidth = 2.5; c.setLineDash(dashed ? [4, 3] : []);
+   c.beginPath(); c.moveTo(lx, 15); c.lineTo(lx + 14, 15); c.stroke(); c.setLineDash([]);
+   c.fillStyle = C.muted; c.fillText(label, lx + 19, 19);
+   lx += 19 + c.measureText(label).width + 16;
+  }
+  c.lineWidth = 1;
+ }
+
+ function draw(){ drawLine(); drawWave(); }
+
+ /* ---------- estado y tiempo ---------- */
+ function syncTime(){
+  $('time').value = Math.round(S.t/P.tmax*1000);
+  $('timeout').textContent = `t = ${fmtT(S.t)} · ${(S.t/P.td).toFixed(2)} td`;
  }
  function update(){
-  const p=params();
-  $('z0out').textContent=p.z0+' Ω';
-  $('zlout').textContent=p.mode==='open'?'∞ Ω':p.zl+' Ω';
-  $('lenout').textContent=get('length')+' cm';
-  $('velout').textContent=(get('velocity')/100).toFixed(2)+' c';
-  $('gamma').textContent=(p.g>=0?'+':'')+p.g.toFixed(2);
-  $('power').textContent=(p.g*p.g*100).toFixed(1)+'%';
-  $('vload').textContent=(1+p.g).toFixed(2)+' pu';
-  let msg;
-  if(Math.abs(p.g)<1e-8)msg='La carga está adaptada a la línea. En el modelo ideal, toda la onda incidente es absorbida y no aparece una onda reflejada.';
-  else if(p.g>0)msg='La carga es mayor que la impedancia característica. ΓL es positivo: la onda de voltaje reflejada conserva la polaridad de la onda incidente.';
-  else msg='La carga es menor que la impedancia característica. ΓL es negativo: la onda de voltaje reflejada invierte su polaridad.';
-  if(p.mode==='open')msg='Circuito abierto ideal: ΓL = +1. La onda de voltaje se refleja sin invertir su polaridad y el voltaje total en la carga alcanza 2 pu.';
-  if(p.mode==='short')msg='Cortocircuito ideal: ΓL = −1. La onda de voltaje se refleja invertida y el voltaje total en la carga es cero.';
-  $('interpretation').textContent=msg;
-  drawWave();drawLine();
+  P = compute(); precompute();
+  if(S.t > P.tmax) S.t = P.tmax;
+  $('z0out').textContent = P.z0 + ' Ω';
+  $('zlout').textContent = fmtR(P.zl);
+  $('rsout').textContent = fmtR(P.rs);
+  $('lenout').textContent = num('length') + ' cm';
+  $('velout').textContent = P.vr.toFixed(2) + ' c';
+  $('riseout').textContent = fmtT(P.tr);
+  $('widthout').textContent = fmtT(P.W);
+  $('widthCtl').hidden = !P.pulse;
+  $('gamma').textContent = signed(P.gl);
+  $('gammas').textContent = signed(P.gs);
+  $('power').textContent = (P.gl*P.gl*100).toFixed(1) + '%';
+  $('tdout').textContent = fmtT(P.td);
+  $('vload').textContent = (P.v1*(1 + P.gl)).toFixed(2) + ' V';
+  $('vfinal').textContent = Math.abs(P.rho) > 1 - EPS && !P.pulse ? 'no se asienta' : P.vdc.toFixed(2) + ' V';
+  interpretation();
+  syncTime(); draw();
  }
- function timeDelay(){return (get('length')/100)/(get('velocity')/100*299792458)*1e9}
- function drawGrid(ctx,w,h,top=20,bottom=h-30){
-  ctx.strokeStyle=C.grid;ctx.lineWidth=1;
-  for(let i=0;i<=5;i++){let y=top+(bottom-top)*i/5;ctx.beginPath();ctx.moveTo(48,y);ctx.lineTo(w-18,y);ctx.stroke()}
-  for(let i=0;i<=6;i++){let x=48+(w-66)*i/6;ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,bottom);ctx.stroke()}
+
+ const setStatus = msg => { $('status').textContent = msg; };
+ function play(stopAt = Infinity, msg = 'Simulando: el flanco viaja hacia la carga.'){
+  if(S.t >= P.tmax - EPS) S.t = 0;
+  S.playing = true; S.last = 0; S.stopAt = stopAt;
+  $('run').textContent = 'Ⅱ Pausar'; setStatus(msg);
+  cancelAnimationFrame(S.raf); S.raf = requestAnimationFrame(frame);
  }
- function drawLine(){
-  const w=line.width,h=line.height;lc.clearRect(0,0,w,h);
-  const grad=lc.createLinearGradient(0,0,w,h);grad.addColorStop(0,'#081827');grad.addColorStop(1,'#0c2233');lc.fillStyle=grad;lc.fillRect(0,0,w,h);
-  const x0=90,x1=w-95,y=150,span=x1-x0;
-  lc.fillStyle='#163e42';lc.fillRect(x0,y-28,span,56);
-  lc.fillStyle='#b78a4d';lc.fillRect(x0,y-4,span,8);
-  lc.fillStyle='#e0b86e';lc.fillRect(x0,y-2,span,4);
-  lc.fillStyle='#8298a9';lc.fillRect(x0,y+34,span,5);
-  lc.fillStyle='#1b2f42';lc.fillRect(25,y-39,65,78);lc.fillRect(x1,y-39,70,78);
-  lc.fillStyle=C.white;lc.font='bold 18px system-ui';lc.fillText('SOURCE',27,y-52);lc.fillText('LOAD',x1+8,y-52);
-  lc.fillStyle=C.muted;lc.font='15px system-ui';lc.fillText('Zs = Z₀',29,y+65);lc.fillText('ZL',x1+25,y+65);
-  lc.fillStyle=C.white;lc.font='14px system-ui';lc.fillText('FR-4 / PCB TRACE',x0+span*.36,y+5);
-  const p=params(),td=timeDelay(),duration=Math.max(.8,td*2.5),cycle=duration+td*2;
-  let t=elapsed%(cycle);
-  let px=x0, color=C.orange, label='INCIDENTE';
-  if(t<td){px=x0+span*t/td;}
-  else if(t<2*td){px=x1-span*(t-td)/td;color=C.blue;label='REFLEJADA';}
-  else {px=x0;color=C.orange;}
-  if(running||elapsed>0){
-   lc.beginPath();lc.arc(px,y,11,0,Math.PI*2);lc.fillStyle=color;lc.shadowColor=color;lc.shadowBlur=18;lc.fill();lc.shadowBlur=0;
+ function pause(msg){
+  S.playing = false; cancelAnimationFrame(S.raf);
+  $('run').textContent = S.t > 0 ? '▶ Reanudar' : '▶ Iniciar simulación';
+  if(msg) setStatus(msg);
+ }
+ function frame(ts){
+  if(!S.playing) return;
+  if(!S.last) S.last = ts;
+  const dt = Math.min((ts - S.last)/1000, .05); S.last = ts;
+  S.t += dt*P.rate*Number($('speed').value);
+  if(S.t >= S.stopAt){
+   S.t = S.stopAt; pause('Recorrido completo: la onda fue a la carga, se reflejó y volvió a la fuente.');
+   syncTime(); draw(); return;
   }
-  lc.fillStyle=C.orange;lc.fillRect(x0-10,y-12,10,24);
-  lc.fillStyle=C.green;lc.fillRect(x1,y-17,13,34);
-  lc.fillStyle=C.muted;lc.font='13px system-ui';lc.fillText('Longitud: '+get('length')+' cm',w/2-75,35);
-  lc.fillStyle=color;lc.font='bold 13px system-ui';lc.fillText(label,Math.max(12,Math.min(w-110,px-35)),y-28);
-  lc.fillStyle=C.muted;lc.font='12px system-ui';lc.fillText('La onda viaja a '+(get('velocity')/100).toFixed(2)+' c',24,h-18);
+  if(S.t > P.tmax) S.t = 0;
+  syncTime(); draw();
+  S.raf = requestAnimationFrame(frame);
  }
- function drawWave(){
-  const w=wave.width,h=wave.height;wc.clearRect(0,0,w,h);
-  wc.fillStyle='#061522';wc.fillRect(0,0,w,h);
-  const left=65,right=w-25,top=35,bottom=h-48;
-  drawGrid(wc,w,h,top,bottom);
-  wc.fillStyle=C.muted;wc.font='13px system-ui';wc.fillText('V / V⁺',12,top+5);wc.fillText('Tiempo →',w-100,h-12);
-  const td=timeDelay(),p=params(),maxT=Math.max(5,td*4),base=bottom-12,scale=(bottom-top)*.65;
-  wc.strokeStyle=C.orange;wc.lineWidth=3;wc.beginPath();
-  for(let i=0;i<=500;i++){let t=maxT*i/500;let v=t>=td?1:0;let x=left+(right-left)*i/500;let y=base-v*scale;if(i===0)wc.moveTo(x,y);else wc.lineTo(x,y)}wc.stroke();
-  wc.strokeStyle=C.blue;wc.lineWidth=2;wc.setLineDash([7,5]);wc.beginPath();
-  for(let i=0;i<=500;i++){let t=maxT*i/500;let v=t>=td?p.g:0;let x=left+(right-left)*i/500;let y=base-v*scale;if(i===0)wc.moveTo(x,y);else wc.lineTo(x,y)}wc.stroke();wc.setLineDash([]);
-  wc.strokeStyle=C.green;wc.lineWidth=3;wc.beginPath();
-  for(let i=0;i<=500;i++){let t=maxT*i/500;let v=t>=td?1+p.g:0;let x=left+(right-left)*i/500;let y=base-v*scale;if(i===0)wc.moveTo(x,y);else wc.lineTo(x,y)}wc.stroke();
-  wc.fillStyle=C.orange;wc.fillText('Incidente',left,20);wc.fillStyle=C.blue;wc.fillText('Reflejada',left+115,20);wc.fillStyle=C.green;wc.fillText('Total en carga',left+230,20);
-  wc.fillStyle=C.muted;wc.font='11px system-ui';wc.fillText('t = '+td.toFixed(2)+' ns (ida)',left+5,bottom+25);
- }
- function stop(){running=false;cancelAnimationFrame(raf);$('run').textContent='▶ Iniciar simulación';$('status').textContent='Simulación pausada.'}
- function frame(ts){if(!running)return;if(!last)last=ts;let dt=Math.min((ts-last)/1000,.05);last=ts;elapsed+=dt*1.4;drawLine();if(oneShot&&elapsed>2.5){stop();oneShot=false;return}raf=requestAnimationFrame(frame)}
- $('run').addEventListener('click',()=>{if(running){stop();return}running=true;last=0;oneShot=false;$('run').textContent='Ⅱ Pausar';$('status').textContent='Pulso propagándose por la línea…';raf=requestAnimationFrame(frame)});
- $('reset').addEventListener('click',()=>{stop();elapsed=0;last=0;drawLine();$('status').textContent='Pulso reiniciado.'});
- $('single').addEventListener('click',()=>{stop();elapsed=0;last=0;oneShot=true;running=true;$('run').textContent='Ⅱ Pausar';$('status').textContent='Mostrando un recorrido de ida y reflexión.';raf=requestAnimationFrame(frame)});
- $('termination').addEventListener('change',()=>{const mode=$('termination').value;if(mode==='matched')$('zl').value=$('z0').value;if(mode==='open'||mode==='short'){}update()});
- $('z0').addEventListener('input',()=>{if($('termination').value==='matched')$('zl').value=$('z0').value;update()});
- $('zl').addEventListener('input',()=>{if($('termination').value!=='open'&&$('termination').value!=='short')$('termination').value='custom';update()});
- ['length','velocity'].forEach(id=>$(id).addEventListener('input',update));
+
+ /* ---------- eventos ---------- */
+ $('run').addEventListener('click', () => S.playing ? pause(`Simulación pausada en t = ${fmtT(S.t)}.`) : play());
+ $('reset').addEventListener('click', () => { S.t = 0; pause('Reiniciado a t = 0.'); syncTime(); draw(); });
+ $('single').addEventListener('click', () => {
+  S.t = 0;
+  play(Math.min(P.tmax, 2*P.td + P.T + (P.pulse ? P.W : 0)), 'Un recorrido: ida hasta la carga y regreso de la reflexión.');
+ });
+ $('time').addEventListener('input', () => {
+  if(S.playing) pause('Simulación pausada.');
+  S.t = num('time')/1000*P.tmax; syncTime(); draw();
+  $('run').textContent = S.t > 0 ? '▶ Reanudar' : '▶ Iniciar simulación';
+ });
+
+ const scrub = e => {
+  const r = wave.getBoundingClientRect(), x = e.clientX - r.left;
+  S.t = Math.max(0, Math.min(P.tmax, (x - S.wbox.L)/(S.wbox.R - S.wbox.L)*P.tmax));
+  syncTime(); draw();
+ };
+ wave.addEventListener('pointerdown', e => {
+  S.dragging = true; wave.setPointerCapture(e.pointerId);
+  if(S.playing) pause('Simulación pausada.');
+  scrub(e); $('run').textContent = '▶ Reanudar';
+ });
+ wave.addEventListener('pointermove', e => { if(S.dragging) scrub(e); });
+ const endDrag = e => { S.dragging = false; if(wave.hasPointerCapture(e.pointerId)) wave.releasePointerCapture(e.pointerId); };
+ wave.addEventListener('pointerup', endDrag); wave.addEventListener('pointercancel', endDrag);
+
+ $('termination').addEventListener('change', () => {
+  const m = $('termination').value;
+  if(m === 'matched') $('zl').value = $('z0').value; else if(m === 'short') $('zl').value = 0;
+  update();
+ });
+ $('source').addEventListener('change', () => {
+  const m = $('source').value;
+  if(m === 'matched') $('rs').value = $('z0').value; else if(m === 'ideal') $('rs').value = 0;
+  update();
+ });
+ $('z0').addEventListener('input', () => {
+  if($('termination').value === 'matched') $('zl').value = $('z0').value;
+  if($('source').value === 'matched') $('rs').value = $('z0').value;
+  update();
+ });
+ $('zl').addEventListener('input', () => { $('termination').value = 'custom'; update(); });
+ $('rs').addEventListener('input', () => { $('source').value = 'custom'; update(); });
+ ['length', 'velocity', 'rise', 'width'].forEach(id => $(id).addEventListener('input', update));
+ $('stimulus').addEventListener('change', update);
+
+ if('ResizeObserver' in window){ const ro = new ResizeObserver(() => P && draw()); ro.observe(line); ro.observe(wave); }
+ else window.addEventListener('resize', draw);
+
+ // Vista inicial: el flanco a mitad de la pista, antes de llegar a la carga.
+ P = compute();
+ S.t = Math.min(P.tmax, .5*P.td + P.T/2);
  update();
+ $('run').textContent = '▶ Iniciar simulación';
 })();
 </script>
 </body>
