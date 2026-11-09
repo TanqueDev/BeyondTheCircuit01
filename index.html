@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="Laboratorio interactivo de integridad de señal: líneas de transmisión, impedancia característica y reflexiones.">
+<meta property="og:title" content="Signal Integrity Lab | Beyond the Circuit">
+<meta property="og:description" content="Explora cómo una discontinuidad de impedancia modifica una señal en una línea de transmisión.">
+<meta property="og:type" content="website">
+<title>Signal Integrity Lab — Beyond the Circuit</title>
+<style>
+:root{--bg:#07111f;--panel:#0d1b2b;--panel2:#102337;--line:#20384e;--text:#eaf4fc;--muted:#9db1c4;--cyan:#23d9e8;--orange:#ffad4d;--blue:#65aaff;--green:#53e0b0;--red:#ff7777}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#123047 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1100px;margin:auto;padding:28px 18px 56px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.brand{font-size:13px;letter-spacing:.16em;font-weight:800;color:var(--cyan)}.edition{font-size:11px;color:var(--muted);border:1px solid var(--line);padding:5px 10px;border-radius:99px}
+h1{font-size:clamp(30px,5vw,54px);line-height:1.05;letter-spacing:-.04em;margin:8px 0 12px;max-width:850px}
+h1 span{color:var(--cyan)}.intro{color:var(--muted);max-width:760px;font-size:16px;margin:0 0 25px}
+.panel{background:linear-gradient(145deg,rgba(16,35,55,.96),rgba(9,24,39,.96));border:1px solid var(--line);border-radius:17px;padding:18px;box-shadow:0 12px 35px #0003}
+.panel h2{font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 13px;color:#d9edf9}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:15px}.controls{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.control{background:#071726;border:1px solid #1b3449;border-radius:12px;padding:12px}
+.control label{display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted);margin-bottom:7px}.control output{color:var(--text);font-weight:700}
+input[type=range]{width:100%;accent-color:var(--cyan);cursor:pointer}
+select,button{font:inherit;color:var(--text);background:#10283d;border:1px solid #31506a;border-radius:9px;padding:9px 11px}
+select{width:100%}button{cursor:pointer;font-weight:650}button:hover{border-color:var(--cyan)}button.primary{background:var(--cyan);color:#04131d;border-color:var(--cyan)}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:13px}
+.stat{background:#071726;border:1px solid #1b3449;border-radius:11px;padding:11px}.stat small{display:block;color:var(--muted);font-size:11px}.stat strong{font-size:21px;letter-spacing:-.03em}
+canvas{display:block;width:100%;height:auto}.diagram-wrap{background:#061522;border:1px solid #19364b;border-radius:12px;overflow:hidden}
+.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:11px;margin:10px 2px 0}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
+.note{font-size:12px;color:var(--muted);margin:12px 2px 0}.formula{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#071726;border:1px solid #1b3449;border-radius:10px;padding:12px;overflow:auto;color:#cdeeff}
+.bottom{margin-top:15px;display:grid;grid-template-columns:1fr 1fr;gap:15px}.callout{border-left:3px solid var(--cyan);padding:3px 0 3px 12px;color:var(--muted);font-size:13px}
+footer{text-align:center;color:#71889d;font-size:11px;margin-top:28px}
+@media(max-width:760px){main{padding:20px 12px 40px}.grid,.bottom{grid-template-columns:1fr}.controls{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr 1fr}.panel{padding:14px}}
+@media(max-width:420px){.controls{grid-template-columns:1fr}.stat strong{font-size:18px}}
+</style>
+</head>
+<body>
+<main>
+ <div class="top"><div class="brand">BEYOND THE CIRCUIT <span style="color:#71889d">/ ENGINEERING CONCEPTS</span></div><div class="edition">VOL. 01 · SIGNAL INTEGRITY</div></div>
+ <h1>Una PCB también tiene <span>memoria.</span></h1>
+ <p class="intro">Cuando los flancos de una señal son suficientemente rápidos, una pista deja de comportarse como una conexión ideal. Explora qué ocurre cuando una onda encuentra una discontinuidad de impedancia.</p>
+
+ <section class="grid">
+  <div class="panel">
+   <h2>01 / Propagación sobre la pista</h2>
+   <div class="diagram-wrap"><canvas id="lineCanvas" width="900" height="300" aria-label="Animación de propagación y reflexión sobre una línea de transmisión"></canvas></div>
+   <div class="legend">
+    <span><i class="dot" style="background:var(--orange)"></i>Onda incidente</span>
+    <span><i class="dot" style="background:var(--blue)"></i>Onda reflejada</span>
+    <span><i class="dot" style="background:var(--green)"></i>Carga</span>
+   </div>
+   <div class="actions"><button class="primary" id="run">▶ Iniciar simulación</button><button id="reset">↺ Reiniciar</button><button id="single">Un recorrido</button></div>
+   <p class="note" id="status" aria-live="polite">Pulsa «Iniciar simulación» para lanzar un pulso hacia la carga.</p>
+  </div>
+
+  <div class="panel">
+   <h2>02 / Parámetros de la línea</h2>
+   <div class="controls">
+    <div class="control"><label for="z0">Impedancia característica <output id="z0out">50 Ω</output></label><input id="z0" type="range" min="20" max="120" step="5" value="50"></div>
+    <div class="control"><label for="zl">Impedancia de carga <output id="zlout">100 Ω</output></label><input id="zl" type="range" min="0" max="200" step="5" value="100"></div>
+    <div class="control"><label for="length">Longitud de pista <output id="lenout">30 cm</output></label><input id="length" type="range" min="5" max="100" step="5" value="30"></div>
+    <div class="control"><label for="velocity">Velocidad relativa <output id="velout">0.60 c</output></label><input id="velocity" type="range" min="30" max="90" step="5" value="60"></div>
+   </div>
+   <div class="control" style="margin-top:12px">
+    <label for="termination">Condición de terminación</label>
+    <select id="termination">
+     <option value="custom">Carga resistiva configurable</option>
+     <option value="matched">Adaptada (ZL = Z0)</option>
+     <option value="open">Circuito abierto</option>
+     <option value="short">Cortocircuito</option>
+    </select>
+   </div>
+   <div class="stats">
+    <div class="stat"><small>Coef. reflexión ΓL</small><strong id="gamma">+0.33</strong></div>
+    <div class="stat"><small>Potencia reflejada</small><strong id="power">11.1%</strong></div>
+    <div class="stat"><small>Voltaje en carga*</small><strong id="vload">1.33 pu</strong></div>
+   </div>
+   <p class="note">*Para un escalón incidente de amplitud 1 pu. Modelo ideal, carga resistiva y fuente adaptada a Z₀.</p>
+  </div>
+ </section>
+
+ <section class="bottom">
+  <div class="panel">
+   <h2>03 / Respuesta temporal en la carga</h2>
+   <div class="diagram-wrap"><canvas id="waveCanvas" width="900" height="310" aria-label="Gráfica temporal de la respuesta de voltaje en la carga"></canvas></div>
+   <p class="note">La primera transición aparece tras el tiempo de propagación de ida. La amplitud depende de la reflexión en la carga.</p>
+  </div>
+  <div class="panel">
+   <h2>04 / Interpretación física</h2>
+   <div class="formula">Γ<sub>L</sub> = (Z<sub>L</sub> − Z<sub>0</sub>) / (Z<sub>L</sub> + Z<sub>0</sub>)</div>
+   <p id="interpretation" class="callout" style="margin-top:14px">Como ZL es mayor que Z0, ΓL es positivo: la onda reflejada conserva la polaridad de la onda incidente.</p>
+   <p class="note">Si Γ = 0 no hay reflexión en la carga. Si Γ = +1, el voltaje se refleja con la misma polaridad (abierto ideal). Si Γ = −1, se refleja invertido (corto ideal).</p>
+  </div>
+ </section>
+ <footer>BEYOND THE CIRCUIT · Laboratorio didáctico de líneas de transmisión · Modelo ideal de primer orden</footer>
+</main>
+<script>
+(() => {
+ const $ = id => document.getElementById(id);
+ const els = ['z0','zl','length','velocity','termination'];
+ let running=false, start=0, elapsed=0, raf=0, last=0, oneShot=false;
+ const line=$('lineCanvas'), wave=$('waveCanvas');
+ const lc=line.getContext('2d'), wc=wave.getContext('2d');
+ const css = name => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+ const C={orange:css('--orange'),blue:css('--blue'),green:css('--green'),cyan:css('--cyan'),muted:css('--muted'),grid:'#1b354a',white:'#eaf4fc'};
+ const get = id => Number($(id).value);
+ function params(){
+  let z0=get('z0'), zl=get('zl'), mode=$('termination').value;
+  if(mode==='matched')zl=z0;
+  if(mode==='open')zl=Infinity;
+  if(mode==='short')zl=0;
+  let g=mode==='open'?1:(mode==='short'?-1:(zl-z0)/(zl+z0));
+  return {z0,zl,g,mode};
+ }
+ function update(){
+  const p=params();
+  $('z0out').textContent=p.z0+' Ω';
+  $('zlout').textContent=p.mode==='open'?'∞ Ω':p.zl+' Ω';
+  $('lenout').textContent=get('length')+' cm';
+  $('velout').textContent=(get('velocity')/100).toFixed(2)+' c';
+  $('gamma').textContent=(p.g>=0?'+':'')+p.g.toFixed(2);
+  $('power').textContent=(p.g*p.g*100).toFixed(1)+'%';
+  $('vload').textContent=(1+p.g).toFixed(2)+' pu';
+  let msg;
+  if(Math.abs(p.g)<1e-8)msg='La carga está adaptada a la línea. En el modelo ideal, toda la onda incidente es absorbida y no aparece una onda reflejada.';
+  else if(p.g>0)msg='La carga es mayor que la impedancia característica. ΓL es positivo: la onda de voltaje reflejada conserva la polaridad de la onda incidente.';
+  else msg='La carga es menor que la impedancia característica. ΓL es negativo: la onda de voltaje reflejada invierte su polaridad.';
+  if(p.mode==='open')msg='Circuito abierto ideal: ΓL = +1. La onda de voltaje se refleja sin invertir su polaridad y el voltaje total en la carga alcanza 2 pu.';
+  if(p.mode==='short')msg='Cortocircuito ideal: ΓL = −1. La onda de voltaje se refleja invertida y el voltaje total en la carga es cero.';
+  $('interpretation').textContent=msg;
+  drawWave();drawLine();
+ }
+ function timeDelay(){return (get('length')/100)/(get('velocity')/100*299792458)*1e9}
+ function drawGrid(ctx,w,h,top=20,bottom=h-30){
+  ctx.strokeStyle=C.grid;ctx.lineWidth=1;
+  for(let i=0;i<=5;i++){let y=top+(bottom-top)*i/5;ctx.beginPath();ctx.moveTo(48,y);ctx.lineTo(w-18,y);ctx.stroke()}
+  for(let i=0;i<=6;i++){let x=48+(w-66)*i/6;ctx.beginPath();ctx.moveTo(x,top);ctx.lineTo(x,bottom);ctx.stroke()}
+ }
+ function drawLine(){
+  const w=line.width,h=line.height;lc.clearRect(0,0,w,h);
+  const grad=lc.createLinearGradient(0,0,w,h);grad.addColorStop(0,'#081827');grad.addColorStop(1,'#0c2233');lc.fillStyle=grad;lc.fillRect(0,0,w,h);
+  const x0=90,x1=w-95,y=150,span=x1-x0;
+  lc.fillStyle='#163e42';lc.fillRect(x0,y-28,span,56);
+  lc.fillStyle='#b78a4d';lc.fillRect(x0,y-4,span,8);
+  lc.fillStyle='#e0b86e';lc.fillRect(x0,y-2,span,4);
+  lc.fillStyle='#8298a9';lc.fillRect(x0,y+34,span,5);
+  lc.fillStyle='#1b2f42';lc.fillRect(25,y-39,65,78);lc.fillRect(x1,y-39,70,78);
+  lc.fillStyle=C.white;lc.font='bold 18px system-ui';lc.fillText('SOURCE',27,y-52);lc.fillText('LOAD',x1+8,y-52);
+  lc.fillStyle=C.muted;lc.font='15px system-ui';lc.fillText('Zs = Z₀',29,y+65);lc.fillText('ZL',x1+25,y+65);
+  lc.fillStyle=C.white;lc.font='14px system-ui';lc.fillText('FR-4 / PCB TRACE',x0+span*.36,y+5);
+  const p=params(),td=timeDelay(),duration=Math.max(.8,td*2.5),cycle=duration+td*2;
+  let t=elapsed%(cycle);
+  let px=x0, color=C.orange, label='INCIDENTE';
+  if(t<td){px=x0+span*t/td;}
+  else if(t<2*td){px=x1-span*(t-td)/td;color=C.blue;label='REFLEJADA';}
+  else {px=x0;color=C.orange;}
+  if(running||elapsed>0){
+   lc.beginPath();lc.arc(px,y,11,0,Math.PI*2);lc.fillStyle=color;lc.shadowColor=color;lc.shadowBlur=18;lc.fill();lc.shadowBlur=0;
+  }
+  lc.fillStyle=C.orange;lc.fillRect(x0-10,y-12,10,24);
+  lc.fillStyle=C.green;lc.fillRect(x1,y-17,13,34);
+  lc.fillStyle=C.muted;lc.font='13px system-ui';lc.fillText('Longitud: '+get('length')+' cm',w/2-75,35);
+  lc.fillStyle=color;lc.font='bold 13px system-ui';lc.fillText(label,Math.max(12,Math.min(w-110,px-35)),y-28);
+  lc.fillStyle=C.muted;lc.font='12px system-ui';lc.fillText('La onda viaja a '+(get('velocity')/100).toFixed(2)+' c',24,h-18);
+ }
+ function drawWave(){
+  const w=wave.width,h=wave.height;wc.clearRect(0,0,w,h);
+  wc.fillStyle='#061522';wc.fillRect(0,0,w,h);
+  const left=65,right=w-25,top=35,bottom=h-48;
+  drawGrid(wc,w,h,top,bottom);
+  wc.fillStyle=C.muted;wc.font='13px system-ui';wc.fillText('V / V⁺',12,top+5);wc.fillText('Tiempo →',w-100,h-12);
+  const td=timeDelay(),p=params(),maxT=Math.max(5,td*4),base=bottom-12,scale=(bottom-top)*.65;
+  wc.strokeStyle=C.orange;wc.lineWidth=3;wc.beginPath();
+  for(let i=0;i<=500;i++){let t=maxT*i/500;let v=t>=td?1:0;let x=left+(right-left)*i/500;let y=base-v*scale;if(i===0)wc.moveTo(x,y);else wc.lineTo(x,y)}wc.stroke();
+  wc.strokeStyle=C.blue;wc.lineWidth=2;wc.setLineDash([7,5]);wc.beginPath();
+  for(let i=0;i<=500;i++){let t=maxT*i/500;let v=t>=td?p.g:0;let x=left+(right-left)*i/500;let y=base-v*scale;if(i===0)wc.moveTo(x,y);else wc.lineTo(x,y)}wc.stroke();wc.setLineDash([]);
+  wc.strokeStyle=C.green;wc.lineWidth=3;wc.beginPath();
+  for(let i=0;i<=500;i++){let t=maxT*i/500;let v=t>=td?1+p.g:0;let x=left+(right-left)*i/500;let y=base-v*scale;if(i===0)wc.moveTo(x,y);else wc.lineTo(x,y)}wc.stroke();
+  wc.fillStyle=C.orange;wc.fillText('Incidente',left,20);wc.fillStyle=C.blue;wc.fillText('Reflejada',left+115,20);wc.fillStyle=C.green;wc.fillText('Total en carga',left+230,20);
+  wc.fillStyle=C.muted;wc.font='11px system-ui';wc.fillText('t = '+td.toFixed(2)+' ns (ida)',left+5,bottom+25);
+ }
+ function stop(){running=false;cancelAnimationFrame(raf);$('run').textContent='▶ Iniciar simulación';$('status').textContent='Simulación pausada.'}
+ function frame(ts){if(!running)return;if(!last)last=ts;let dt=Math.min((ts-last)/1000,.05);last=ts;elapsed+=dt*1.4;drawLine();if(oneShot&&elapsed>2.5){stop();oneShot=false;return}raf=requestAnimationFrame(frame)}
+ $('run').addEventListener('click',()=>{if(running){stop();return}running=true;last=0;oneShot=false;$('run').textContent='Ⅱ Pausar';$('status').textContent='Pulso propagándose por la línea…';raf=requestAnimationFrame(frame)});
+ $('reset').addEventListener('click',()=>{stop();elapsed=0;last=0;drawLine();$('status').textContent='Pulso reiniciado.'});
+ $('single').addEventListener('click',()=>{stop();elapsed=0;last=0;oneShot=true;running=true;$('run').textContent='Ⅱ Pausar';$('status').textContent='Mostrando un recorrido de ida y reflexión.';raf=requestAnimationFrame(frame)});
+ $('termination').addEventListener('change',()=>{const mode=$('termination').value;if(mode==='matched')$('zl').value=$('z0').value;if(mode==='open'||mode==='short'){}update()});
+ $('z0').addEventListener('input',()=>{if($('termination').value==='matched')$('zl').value=$('z0').value;update()});
+ $('zl').addEventListener('input',()=>{if($('termination').value!=='open'&&$('termination').value!=='short')$('termination').value='custom';update()});
+ ['length','velocity'].forEach(id=>$(id).addEventListener('input',update));
+ update();
+})();
+</script>
+</body>
+</html>
